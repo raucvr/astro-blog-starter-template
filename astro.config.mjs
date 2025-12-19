@@ -7,11 +7,18 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://example.com",
+	site: "https://neuroship.com",
 	integrations: [mdx(), sitemap()],
 	adapter: cloudflare({
 		platformProxy: {
 			enabled: true,
 		},
+		imageService: "passthrough", // 禁用图片优化，防止构建超时
 	}),
+	// 使用 Astro 内置图片服务而非 sharp
+	image: {
+		service: {
+			entrypoint: 'astro/assets/services/noop'
+		}
+	}
 });
