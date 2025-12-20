@@ -16,11 +16,82 @@ const posts = (await getCollection('blog')).sort(
 	<head>
 		<BaseHead title={`Blog - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 		<style>
-			/* Page Header */
+			/* Animated Gradient Background */
+			@keyframes gradientShift {
+				0% {
+					background-position: 0% 50%;
+				}
+				50% {
+					background-position: 100% 50%;
+				}
+				100% {
+					background-position: 0% 50%;
+				}
+			}
+
+			@keyframes floatOrb {
+				0%, 100% {
+					transform: translate(0, 0) scale(1);
+					opacity: 0.4;
+				}
+				25% {
+					transform: translate(10%, -10%) scale(1.1);
+					opacity: 0.5;
+				}
+				50% {
+					transform: translate(-5%, 15%) scale(0.95);
+					opacity: 0.35;
+				}
+				75% {
+					transform: translate(-10%, -5%) scale(1.05);
+					opacity: 0.45;
+				}
+			}
+
+			/* Page Header with animated background */
 			.page-header {
-				padding: 8rem 2rem 4rem;
+				padding: 10rem 2rem 6rem;
+				position: relative;
+				overflow: hidden;
+				background: linear-gradient(135deg, 
+					rgb(245, 240, 255) 0%, 
+					rgb(240, 248, 255) 25%,
+					rgb(250, 245, 255) 50%,
+					rgb(240, 250, 255) 75%,
+					rgb(245, 240, 255) 100%);
+				background-size: 400% 400%;
+				animation: gradientShift 15s ease infinite;
+			}
+
+			.page-header::before {
+				content: '';
+				position: absolute;
+				top: -50%;
+				left: -50%;
+				width: 100%;
+				height: 100%;
+				background: radial-gradient(circle, rgba(220, 200, 255, 0.4) 0%, transparent 60%);
+				animation: floatOrb 20s ease-in-out infinite;
+				pointer-events: none;
+			}
+
+			.page-header::after {
+				content: '';
+				position: absolute;
+				bottom: -30%;
+				right: -30%;
+				width: 80%;
+				height: 80%;
+				background: radial-gradient(circle, rgba(200, 220, 255, 0.35) 0%, transparent 60%);
+				animation: floatOrb 25s ease-in-out infinite reverse;
+				pointer-events: none;
+			}
+
+			.page-header-content {
 				max-width: 1400px;
 				margin: 0 auto;
+				position: relative;
+				z-index: 1;
 			}
 
 			.page-title {
@@ -135,7 +206,7 @@ const posts = (await getCollection('blog')).sort(
 
 			@media (max-width: 768px) {
 				.page-header {
-					padding: 6rem 1rem 3rem;
+					padding: 7rem 1rem 4rem;
 				}
 
 				.blog-section {
@@ -163,8 +234,10 @@ const posts = (await getCollection('blog')).sort(
 		
 		<!-- Page Header -->
 		<header class="page-header">
-			<h1 class="page-title">Insights</h1>
-			<p class="page-description">Thoughts on neuroscience, AI, and the future of human potential.</p>
+			<div class="page-header-content">
+				<h1 class="page-title">Insights</h1>
+				<p class="page-description">Thoughts on neuroscience, AI, and the future of human potential.</p>
+			</div>
 		</header>
 
 		<!-- Blog List -->
