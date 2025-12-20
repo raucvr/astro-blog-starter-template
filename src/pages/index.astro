@@ -396,33 +396,157 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 			@media (max-width: 768px) {
 				.hero {
 					padding: 1rem;
-					min-height: auto;
-					padding-top: 6rem;
-					padding-bottom: 4rem;
+					min-height: 100vh;
+					min-height: 100dvh;
+					padding-top: 5rem;
+					padding-bottom: 3rem;
+				}
+
+				.hero-content {
+					padding: 0 0.5rem;
 				}
 
 				.hero-logo {
-					max-width: 300px;
+					max-width: 280px;
+					margin-bottom: 2rem;
+				}
+
+				.hero-subtitle {
+					font-size: 1rem;
+					line-height: 1.7;
+					margin-bottom: 2rem;
+				}
+
+				.hero-buttons {
+					flex-direction: column;
+					width: 100%;
+					max-width: 280px;
+				}
+
+				.hero-buttons .btn {
+					width: 100%;
+					justify-content: center;
+				}
+
+				.scroll-indicator {
+					display: none;
 				}
 
 				.goals-section,
 				.vision-section,
 				.features-section,
 				.cta-section {
-					padding: 4rem 1rem;
+					padding: 3rem 1rem;
+				}
+
+				.section-header {
+					margin-bottom: 2rem;
+				}
+
+				.section-header h2 {
+					font-size: 1.75rem;
+				}
+
+				.section-header .lead {
+					font-size: 1rem;
+				}
+
+				.goals-grid {
+					grid-template-columns: 1fr;
+					gap: 1.5rem;
 				}
 
 				.goal-card {
-					padding: 2rem;
+					padding: 1.5rem;
 				}
 
-				.cta-box {
-					padding: 2rem;
+				.goal-icon {
+					width: 52px;
+					height: 52px;
+					margin-bottom: 1rem;
+				}
+
+				.goal-icon svg {
+					width: 26px;
+					height: 26px;
+				}
+
+				.goal-card h3 {
+					font-size: 1.25rem;
+				}
+
+				.goal-card p {
+					font-size: 0.95rem;
+				}
+
+				.vision-content {
+					padding: 0 0.5rem;
+				}
+
+				.vision-quote {
+					font-size: 1.25rem;
+					padding: 0;
 				}
 
 				.vision-quote::before,
 				.vision-quote::after {
 					display: none;
+				}
+
+				.features-grid {
+					grid-template-columns: 1fr;
+					gap: 1rem;
+				}
+
+				.feature-item {
+					padding: 1.25rem;
+				}
+
+				.feature-icon {
+					width: 42px;
+					height: 42px;
+				}
+
+				.feature-icon svg {
+					width: 20px;
+					height: 20px;
+				}
+
+				.feature-content h4 {
+					font-size: 1rem;
+				}
+
+				.feature-content p {
+					font-size: 0.9rem;
+				}
+
+				.cta-box {
+					padding: 2rem 1.5rem;
+					border-radius: 20px;
+				}
+
+				.cta-box h2 {
+					font-size: 1.5rem;
+				}
+
+				.cta-box p {
+					font-size: 0.95rem;
+				}
+			}
+
+			/* Extra small devices */
+			@media (max-width: 375px) {
+				.hero-logo {
+					max-width: 240px;
+				}
+
+				.goal-card {
+					padding: 1.25rem;
+				}
+
+				.section-badge {
+					font-size: 0.75rem;
+					padding: 0.4rem 0.8rem;
 				}
 			}
 

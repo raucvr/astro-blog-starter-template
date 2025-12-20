@@ -201,17 +201,63 @@ const today = new Date();
 	}
 
 	@media (max-width: 768px) {
-		.footer-grid {
-			grid-template-columns: 1fr;
-			gap: 2rem;
+		footer {
+			padding: 2.5rem 0 1.5rem;
 		}
 
 		.footer-container {
 			padding: 0 1rem;
 		}
 
-		footer {
-			padding: 3rem 0 1.5rem;
+		.footer-grid {
+			grid-template-columns: 1fr;
+			gap: 2rem;
+			text-align: center;
+		}
+
+		.footer-brand {
+			align-items: center;
+		}
+
+		.footer-logo {
+			justify-content: center;
+		}
+
+		.footer-tagline {
+			text-align: center;
+			max-width: 100%;
+		}
+
+		.social-links {
+			justify-content: center;
+		}
+
+		.footer-links h4 {
+			margin-bottom: 1rem;
+		}
+
+		.footer-links ul {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 1rem;
+		}
+
+		.footer-links li {
+			margin-bottom: 0;
+		}
+
+		.footer-bottom {
+			padding-top: 1.5rem;
+		}
+
+		.footer-bottom p {
+			font-size: 0.8rem;
+		}
+
+		.footer-vision {
+			font-size: 0.75rem !important;
+			line-height: 1.5;
 		}
 	}
 </style>
