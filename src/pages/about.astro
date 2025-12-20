@@ -197,51 +197,37 @@ import { SITE_TITLE, COMPANY, GOALS } from '../consts';
 			}
 
 			/* Values Grid */
-			/* Values - Isomorphic Labs style: horizontal list with large titles */
-			.values-list {
-				display: flex;
-				flex-direction: column;
-			}
-
-			.value-item {
+			/* Values - Isomorphic Labs card style */
+			.values-grid {
 				display: grid;
-				grid-template-columns: 1fr 2fr;
-				gap: 4rem;
-				padding: 3rem 0;
-				border-bottom: 1px solid var(--border-color);
+				grid-template-columns: repeat(3, 1fr);
+				gap: 1.5rem;
 			}
 
-			.value-item:first-child {
-				border-top: 1px solid var(--border-color);
+			.value-card {
+				background: var(--bg-primary);
+				border: 1px solid var(--border-color);
+				border-radius: 16px;
+				padding: 2.5rem;
+				transition: box-shadow 0.3s ease;
 			}
 
-			.value-left {
-				display: flex;
-				flex-direction: column;
-				gap: 0.5rem;
-			}
-
-			.value-number {
-				font-size: 0.75rem;
-				font-weight: 400;
-				letter-spacing: 0.05em;
-				text-transform: uppercase;
-				color: var(--text-muted);
+			.value-card:hover {
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 			}
 
 			.value-title {
-				font-size: clamp(1.5rem, 3vw, 2rem);
-				font-weight: 200;
+				font-size: clamp(1.5rem, 2.5vw, 1.75rem);
+				font-weight: 300;
 				line-height: 1.2;
-				margin: 0;
+				margin: 0 0 1.5rem 0;
 			}
 
 			.value-description {
-				font-size: 1rem;
+				font-size: 0.9375rem;
 				line-height: 1.6;
 				color: var(--text-secondary);
 				margin: 0;
-				max-width: 500px;
 			}
 
 			/* Team Section */
@@ -334,13 +320,9 @@ import { SITE_TITLE, COMPANY, GOALS } from '../consts';
 
 			/* Responsive */
 			@media (max-width: 1024px) {
-				.meaning-grid {
+				.meaning-grid,
+				.values-grid {
 					grid-template-columns: 1fr;
-				}
-
-				.value-item {
-					grid-template-columns: 1fr;
-					gap: 1.5rem;
 				}
 			}
 
@@ -451,27 +433,18 @@ import { SITE_TITLE, COMPANY, GOALS } from '../consts';
 					</div>
 				</div>
 
-				<div class="values-list">
-					<div class="value-item">
-						<div class="value-left">
-							<span class="value-number">01</span>
-							<h3 class="value-title">Human-Centered</h3>
-						</div>
+				<div class="values-grid">
+					<div class="value-card">
+						<h3 class="value-title">Human-Centered</h3>
 						<p class="value-description">Every research project and product is ultimately aimed at improving human quality of life. We believe technology should serve humanity's deepest needs.</p>
 					</div>
-					<div class="value-item">
-						<div class="value-left">
-							<span class="value-number">02</span>
-							<h3 class="value-title">Continuous Innovation</h3>
-						</div>
-						<p class="value-description">Constantly exploring scientific frontiers with innovative thinking to solve the most challenging problems. We push boundaries others haven't dared to approach.</p>
+					<div class="value-card">
+						<h3 class="value-title">Continuous<br/>Innovation</h3>
+						<p class="value-description">Constantly exploring scientific frontiers with innovative thinking to solve the most challenging problems.</p>
 					</div>
-					<div class="value-item">
-						<div class="value-left">
-							<span class="value-number">03</span>
-							<h3 class="value-title">Open Collaboration</h3>
-						</div>
-						<p class="value-description">Working closely with world-leading research institutions and medical teams to advance human health. Together, we can achieve what none of us could alone.</p>
+					<div class="value-card">
+						<h3 class="value-title">Open Collaboration</h3>
+						<p class="value-description">Working closely with world-leading research institutions and medical teams to advance human health.</p>
 					</div>
 				</div>
 			</section>
