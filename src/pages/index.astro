@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, LOGOS } from '../consts';
 ---
 
 <!doctype html>
@@ -37,40 +37,57 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 				max-width: 1400px;
 				margin: 0 auto;
 				width: 100%;
-				animation: fadeInUp 0.8s ease forwards;
 			}
 
-			/* Hero Logo at top */
+			/* Hero Logo at top - LARGER */
 			.hero-logo {
-				margin-bottom: 3rem;
-				animation: fadeIn 0.6s ease forwards;
+				margin-bottom: 4rem;
+				opacity: 0;
+				animation: fadeIn 1s ease 0.2s forwards;
 			}
 
 			.hero-logo img {
-				max-width: 280px;
+				max-width: 400px;
 				height: auto;
+				/* 混合模式让白色背景透明化 */
+				mix-blend-mode: multiply;
 			}
 
+			/* Animated title - letter by letter effect like Isomorphic Labs */
 			.hero-title {
-				font-size: clamp(2.5rem, 5vw, 3.5rem);
+				font-size: clamp(3rem, 6vw, 4.5rem);
 				font-weight: 200;
-				line-height: 1.2;
+				line-height: 1.1;
 				letter-spacing: -0.03em;
 				margin-bottom: 2rem;
-				max-width: 600px;
-				animation: fadeInUp 0.8s ease 0.1s forwards;
-				opacity: 0;
+				max-width: 700px;
 			}
 
+			.hero-title .line {
+				display: block;
+				overflow: hidden;
+			}
+
+			.hero-title .line-inner {
+				display: block;
+				opacity: 0;
+				transform: translateY(100%);
+				animation: slideUpReveal 0.8s ease forwards;
+			}
+
+			.hero-title .line:nth-child(1) .line-inner { animation-delay: 0.3s; }
+			.hero-title .line:nth-child(2) .line-inner { animation-delay: 0.4s; }
+			.hero-title .line:nth-child(3) .line-inner { animation-delay: 0.5s; }
+
 			.hero-description {
-				font-size: 0.875rem;
-				line-height: 1.4;
+				font-size: 1rem;
+				line-height: 1.5;
 				color: var(--text-primary);
 				max-width: 600px;
 				margin-bottom: 0;
 				font-weight: 300;
-				animation: fadeInUp 0.8s ease 0.2s forwards;
 				opacity: 0;
+				animation: fadeInUp 0.8s ease 0.7s forwards;
 			}
 
 			/* Main Content */
@@ -89,16 +106,23 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 				border-top: 1px solid var(--border-color);
 			}
 
+			.content-text {
+				opacity: 0;
+				animation: fadeInUp 0.6s ease forwards;
+				animation-delay: 0.2s;
+			}
+
 			.content-text p {
 				font-size: 0.875rem;
-				line-height: 1.4;
+				line-height: 1.5;
 				margin-bottom: 1rem;
 			}
 
 			/* News Section */
-			.news-section {
-				padding: 4rem 0;
-				border-top: 1px solid var(--border-color);
+			.news-section-inline {
+				opacity: 0;
+				animation: fadeInUp 0.6s ease forwards;
+				animation-delay: 0.4s;
 			}
 
 			.news-header {
@@ -114,11 +138,20 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 				gap: 0.5rem;
 			}
 
+			/* Animated eyebrow text - Isomorphic Labs style */
 			.news-eyebrow {
 				font-size: 0.75rem;
 				font-weight: 400;
 				letter-spacing: 0.0625rem;
 				text-transform: uppercase;
+				display: flex;
+				gap: 0.15em;
+			}
+
+			.news-eyebrow .char {
+				display: inline-block;
+				opacity: 0;
+				animation: charFadeIn 0.4s ease forwards;
 			}
 
 			.news-list {
@@ -147,208 +180,7 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 				color: var(--text-muted);
 			}
 
-			/* Goals Section */
-			.goals-section {
-				padding: 6rem 0;
-				border-top: 1px solid var(--border-color);
-			}
-
-			.goals-header {
-				display: flex;
-				justify-content: space-between;
-				align-items: flex-start;
-				margin-bottom: 3rem;
-			}
-
-			.goals-intro {
-				max-width: 600px;
-			}
-
-			.goals-eyebrow {
-				font-size: 0.75rem;
-				font-weight: 400;
-				letter-spacing: 0.0625rem;
-				text-transform: uppercase;
-				margin-bottom: 1rem;
-			}
-
-			.goals-title {
-				font-size: clamp(1.5rem, 3vw, 2.25rem);
-				font-weight: 200;
-				margin-bottom: 0;
-			}
-
-			/* Cards Grid */
-			.cards-grid {
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 1px;
-				background: var(--border-color);
-				border: 1px solid var(--border-color);
-			}
-
-			.goal-card {
-				background: var(--bg-primary);
-				padding: 2rem;
-				display: flex;
-				flex-direction: column;
-				transition: background 0.3s ease;
-			}
-
-			.goal-card:hover {
-				background: var(--gray-50);
-			}
-
-			.card-eyebrow {
-				font-size: 0.75rem;
-				font-weight: 400;
-				letter-spacing: 0.0625rem;
-				text-transform: uppercase;
-				margin-bottom: 1rem;
-			}
-
-			.card-title {
-				font-size: 1.375rem;
-				font-weight: 300;
-				margin-bottom: 1rem;
-				flex: 1;
-			}
-
-			.card-description {
-				font-size: 0.875rem;
-				color: var(--text-muted);
-				line-height: 1.5;
-				margin-bottom: 0;
-			}
-
-			/* Vision Section */
-			.vision-section {
-				padding: 6rem 0;
-				border-top: 1px solid var(--border-color);
-			}
-
-			.vision-grid {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: 4rem;
-			}
-
-			.vision-text {
-				max-width: 500px;
-			}
-
-			.vision-eyebrow {
-				font-size: 0.75rem;
-				font-weight: 400;
-				letter-spacing: 0.0625rem;
-				text-transform: uppercase;
-				margin-bottom: 1rem;
-			}
-
-			.vision-statement {
-				font-size: 0.875rem;
-				line-height: 1.4;
-				margin-bottom: 2rem;
-			}
-
-			.vision-image {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-
-			.vision-image img {
-				max-width: 100%;
-				height: auto;
-			}
-
-			/* Quote Section */
-			.quote-section {
-				padding: 6rem 0;
-				border-top: 1px solid var(--border-color);
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: 4rem;
-				align-items: center;
-			}
-
-			.quote-text {
-				font-size: clamp(1.25rem, 2vw, 1.5rem);
-				font-weight: 300;
-				line-height: 1.4;
-				margin-bottom: 2rem;
-			}
-
-			.quote-author {
-				margin-top: 1.5rem;
-			}
-
-			.author-name {
-				font-size: 0.75rem;
-				font-weight: 400;
-				letter-spacing: 0.0625rem;
-				text-transform: uppercase;
-				margin-bottom: 0.25rem;
-			}
-
-			.author-title {
-				font-size: 0.75rem;
-				font-weight: 400;
-				letter-spacing: 0.0625rem;
-				text-transform: uppercase;
-				color: var(--text-muted);
-			}
-
-			/* Latest Section */
-			.latest-section {
-				padding: 6rem 0;
-				border-top: 1px solid var(--border-color);
-			}
-
-			.latest-eyebrow {
-				font-size: 0.75rem;
-				font-weight: 400;
-				letter-spacing: 0.0625rem;
-				text-transform: uppercase;
-				margin-bottom: 2rem;
-			}
-
-			.latest-grid {
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 2rem;
-			}
-
-			.latest-card {
-				display: block;
-				text-decoration: none;
-				color: var(--text-primary);
-			}
-
-			.latest-tag {
-				font-size: 0.75rem;
-				font-weight: 400;
-				letter-spacing: 0.0625rem;
-				text-transform: uppercase;
-				color: var(--text-muted);
-				margin-bottom: 0.5rem;
-			}
-
-			.latest-title {
-				font-size: 1.375rem;
-				font-weight: 300;
-				line-height: 1.3;
-			}
-
-			.latest-card:hover .latest-title {
-				color: var(--text-muted);
-			}
-
-			.latest-footer {
-				margin-top: 2rem;
-			}
-
-			/* Animations */
+			/* Animations - Isomorphic Labs style */
 			@keyframes fadeIn {
 				from { opacity: 0; }
 				to { opacity: 1; }
@@ -365,61 +197,54 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 				}
 			}
 
-			/* Responsive */
-			@media (max-width: 1024px) {
-				.cards-grid {
-					grid-template-columns: 1fr;
+			@keyframes slideUpReveal {
+				from {
+					opacity: 0;
+					transform: translateY(100%);
 				}
-
-				.latest-grid {
-					grid-template-columns: 1fr;
-					gap: 1.5rem;
+				to {
+					opacity: 1;
+					transform: translateY(0);
 				}
 			}
 
+			@keyframes charFadeIn {
+				from {
+					opacity: 0;
+					transform: translateY(10px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			/* Responsive */
 			@media (max-width: 768px) {
 				.hero {
 					padding: 6rem 1rem 3rem;
 					min-height: auto;
 				}
 
+				.hero-logo {
+					margin-bottom: 2rem;
+				}
+
 				.hero-logo img {
-					max-width: 200px;
+					max-width: 280px;
 				}
 
 				.hero-title {
-					font-size: 2rem;
+					font-size: clamp(2.5rem, 10vw, 3.5rem);
 				}
 
 				.main-content {
 					padding: 0 1rem;
 				}
 
-				.content-grid,
-				.vision-grid,
-				.quote-section {
+				.content-grid {
 					grid-template-columns: 1fr;
 					gap: 2rem;
-				}
-
-				.goals-section,
-				.vision-section,
-				.quote-section,
-				.latest-section {
-					padding: 3rem 0;
-				}
-
-				.goals-header {
-					flex-direction: column;
-					gap: 1rem;
-				}
-
-				.goal-card {
-					padding: 1.5rem;
-				}
-
-				.quote-image {
-					order: -1;
 				}
 
 				.news-header {
@@ -441,10 +266,11 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 					<img src={LOGOS.full} alt="Neuroship" />
 				</div>
 				
+				<!-- Animated Title - Isomorphic Labs style -->
 				<h1 class="hero-title">
-					Decoding<br/>
-					the rhythms<br/>
-					of life
+					<span class="line"><span class="line-inner">Decoding</span></span>
+					<span class="line"><span class="line-inner">the rhythms</span></span>
+					<span class="line"><span class="line-inner">of life</span></span>
 				</h1>
 				<p class="hero-description">
 					We're entering a new era of neuroscience — one where AI can unlock deeper understanding of the mind, faster breakthroughs, and life-changing therapies. At Neuroship, we're building that future.
@@ -463,7 +289,27 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 				<div class="news-section-inline">
 					<div class="news-header">
 						<div class="news-title">
-							<span class="news-eyebrow">Latest from Neuroship</span>
+							<span class="news-eyebrow">
+								<span class="char" style="animation-delay: 0.1s">L</span>
+								<span class="char" style="animation-delay: 0.12s">a</span>
+								<span class="char" style="animation-delay: 0.14s">t</span>
+								<span class="char" style="animation-delay: 0.16s">e</span>
+								<span class="char" style="animation-delay: 0.18s">s</span>
+								<span class="char" style="animation-delay: 0.2s">t</span>
+								<span class="char" style="animation-delay: 0.24s; margin-left: 0.3em">f</span>
+								<span class="char" style="animation-delay: 0.26s">r</span>
+								<span class="char" style="animation-delay: 0.28s">o</span>
+								<span class="char" style="animation-delay: 0.3s">m</span>
+								<span class="char" style="animation-delay: 0.34s; margin-left: 0.3em">N</span>
+								<span class="char" style="animation-delay: 0.36s">e</span>
+								<span class="char" style="animation-delay: 0.38s">u</span>
+								<span class="char" style="animation-delay: 0.4s">r</span>
+								<span class="char" style="animation-delay: 0.42s">o</span>
+								<span class="char" style="animation-delay: 0.44s">s</span>
+								<span class="char" style="animation-delay: 0.46s">h</span>
+								<span class="char" style="animation-delay: 0.48s">i</span>
+								<span class="char" style="animation-delay: 0.5s">p</span>
+							</span>
 						</div>
 						<a href="/blog" class="arrow-link">
 							View All
@@ -479,92 +325,27 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 					</ul>
 				</div>
 			</div>
-
-			<!-- Goals Section - Removed unnecessary About links -->
-			<section class="goals-section">
-				<div class="goals-header">
-					<div class="goals-intro">
-						<span class="goals-eyebrow">Our Goal</span>
-						<h2 class="goals-title">We're using AI to transform understanding of the human mind.</h2>
-					</div>
-				</div>
-
-				<div class="cards-grid">
-					<div class="goal-card">
-						<span class="card-eyebrow">Phase 1 · Short-term</span>
-						<h3 class="card-title">{GOALS.shortTerm.title}</h3>
-						<p class="card-description">{GOALS.shortTerm.description}</p>
-					</div>
-					<div class="goal-card">
-						<span class="card-eyebrow">Phase 2 · Mid-term</span>
-						<h3 class="card-title">{GOALS.midTerm.title}</h3>
-						<p class="card-description">{GOALS.midTerm.description}</p>
-					</div>
-					<div class="goal-card">
-						<span class="card-eyebrow">Phase 3 · Long-term</span>
-						<h3 class="card-title">{GOALS.longTerm.title}</h3>
-						<p class="card-description">{GOALS.longTerm.description}</p>
-					</div>
-				</div>
-			</section>
-
-			<!-- Vision Section - Keep one "About Us" link here -->
-			<section class="vision-section">
-				<div class="vision-grid">
-					<div class="vision-text">
-						<span class="vision-eyebrow">Neuroship</span>
-						<p class="vision-statement">
-							Our name embodies our belief in the power of technology to navigate the complexities of the human mind. By harnessing AI's powerful capabilities, we can model neural patterns, anticipate behavioral outcomes, and develop innovative therapies to help those with neurological differences thrive.
-						</p>
-						<a href="/about" class="arrow-link">
-							About Us
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-								<path d="M5 12h14M12 5l7 7-7 7"/>
-							</svg>
-						</a>
-					</div>
-					<div class="vision-image">
-						<!-- Decorative element or secondary visual -->
-					</div>
-				</div>
-			</section>
-
-			<!-- Quote Section -->
-			<section class="quote-section">
-				<div class="quote-content">
-					<p class="quote-text">
-						"I believe there is no more important application for AI than ensuring no mind is left behind and granting every life the freedom to reach the future."
-					</p>
-					<div class="quote-author">
-						<p class="author-name">Takayuki Ishii</p>
-						<p class="author-title">Founder</p>
-					</div>
-				</div>
-				<div class="quote-image">
-					<!-- Placeholder for founder image -->
-				</div>
-			</section>
-
-			<!-- Latest Section -->
-			<section class="latest-section">
-				<span class="latest-eyebrow">Latest from Neuroship</span>
-				<div class="latest-grid">
-					<a href="/blog/ai-era-new-rules" class="latest-card">
-						<span class="latest-tag">Insights</span>
-						<h3 class="latest-title">The AI Era: When Old Rules No Longer Apply</h3>
-					</a>
-				</div>
-				<div class="latest-footer">
-					<a href="/blog" class="arrow-link">
-						More Updates
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<path d="M5 12h14M12 5l7 7-7 7"/>
-						</svg>
-					</a>
-				</div>
-			</section>
 		</main>
 
 		<Footer />
+
+		<!-- Intersection Observer for scroll animations -->
+		<script is:inline>
+			// Add animation on scroll
+			document.addEventListener('DOMContentLoaded', () => {
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach(entry => {
+						if (entry.isIntersecting) {
+							entry.target.style.animationPlayState = 'running';
+						}
+					});
+				}, { threshold: 0.1 });
+
+				document.querySelectorAll('.content-text, .news-section-inline').forEach(el => {
+					el.style.animationPlayState = 'paused';
+					observer.observe(el);
+				});
+			});
+		</script>
 	</body>
 </html>
