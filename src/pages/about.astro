@@ -318,6 +318,59 @@ import { SITE_TITLE, COMPANY, GOALS } from '../consts';
 				margin: 0;
 			}
 
+			/* Animations */
+			@keyframes fadeInUp {
+				from {
+					opacity: 0;
+					transform: translateY(30px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			.animate-fade-in {
+				opacity: 0;
+				animation: fadeInUp 0.8s ease forwards;
+			}
+
+			.animate-delay-1 { animation-delay: 0.1s; }
+			.animate-delay-2 { animation-delay: 0.2s; }
+			.animate-delay-3 { animation-delay: 0.3s; }
+			.animate-delay-4 { animation-delay: 0.4s; }
+			.animate-delay-5 { animation-delay: 0.5s; }
+			.animate-delay-6 { animation-delay: 0.6s; }
+
+			/* Scroll animations */
+			.scroll-animate {
+				opacity: 0;
+				transform: translateY(30px);
+				transition: opacity 0.6s ease, transform 0.6s ease;
+			}
+
+			.scroll-animate.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* Staggered animation for cards */
+			.meaning-card.scroll-animate:nth-child(1) { transition-delay: 0.1s; }
+			.meaning-card.scroll-animate:nth-child(2) { transition-delay: 0.2s; }
+			.meaning-card.scroll-animate:nth-child(3) { transition-delay: 0.3s; }
+
+			.value-card.scroll-animate:nth-child(1) { transition-delay: 0.1s; }
+			.value-card.scroll-animate:nth-child(2) { transition-delay: 0.2s; }
+			.value-card.scroll-animate:nth-child(3) { transition-delay: 0.3s; }
+
+			.team-member.scroll-animate:nth-child(1) { transition-delay: 0.1s; }
+			.team-member.scroll-animate:nth-child(2) { transition-delay: 0.2s; }
+
+			.timeline-item.scroll-animate:nth-child(1) { transition-delay: 0.1s; }
+			.timeline-item.scroll-animate:nth-child(2) { transition-delay: 0.2s; }
+			.timeline-item.scroll-animate:nth-child(3) { transition-delay: 0.3s; }
+			.timeline-item.scroll-animate:nth-child(4) { transition-delay: 0.4s; }
+
 			/* Responsive */
 			@media (max-width: 1024px) {
 				.meaning-grid,
@@ -362,8 +415,8 @@ import { SITE_TITLE, COMPANY, GOALS } from '../consts';
 		<!-- Vision Hero -->
 		<header class="vision-hero">
 			<div class="vision-content">
-				<span class="vision-eyebrow">Our Vision</span>
-				<p class="vision-statement">
+				<span class="vision-eyebrow animate-fade-in">Our Vision</span>
+				<p class="vision-statement animate-fade-in animate-delay-2">
 					Decoding the rhythms of life,<br/>
 					ensuring no mind is left behind,<br/>
 					granting every life the freedom to reach the future.
@@ -373,7 +426,7 @@ import { SITE_TITLE, COMPANY, GOALS } from '../consts';
 
 		<main class="main-content">
 			<!-- Story Section - The Meaning of Neuroship -->
-			<section class="content-section">
+			<section class="content-section" id="story-section">
 				<div class="section-header">
 					<div class="section-intro">
 						<span class="section-eyebrow">Our Story</span>
@@ -387,7 +440,7 @@ import { SITE_TITLE, COMPANY, GOALS } from '../consts';
 
 				<div class="meaning-grid">
 					<!-- Phase 1: Smart Glasses -->
-					<div class="meaning-card">
+					<div class="meaning-card scroll-animate">
 						<span class="meaning-phase">Phase 1 · Short-term</span>
 						<h3 class="meaning-title">Smart Glasses</h3>
 						<p class="meaning-description">
@@ -399,7 +452,7 @@ import { SITE_TITLE, COMPANY, GOALS } from '../consts';
 					</div>
 
 					<!-- Phase 2: Gene Therapy -->
-					<div class="meaning-card">
+					<div class="meaning-card scroll-animate">
 						<span class="meaning-phase">Phase 2 · Mid-term</span>
 						<h3 class="meaning-title">Gene Therapy</h3>
 						<p class="meaning-description">
@@ -411,7 +464,7 @@ import { SITE_TITLE, COMPANY, GOALS } from '../consts';
 					</div>
 
 					<!-- Phase 3: Evolution Engineering -->
-					<div class="meaning-card">
+					<div class="meaning-card scroll-animate">
 						<span class="meaning-phase">Phase 3 · Long-term</span>
 						<h3 class="meaning-title">Evolution Engineering</h3>
 						<p class="meaning-description">
@@ -434,15 +487,15 @@ import { SITE_TITLE, COMPANY, GOALS } from '../consts';
 				</div>
 
 				<div class="values-grid">
-					<div class="value-card">
+					<div class="value-card scroll-animate">
 						<h3 class="value-title">Human-Centered</h3>
 						<p class="value-description">Every research project and product is ultimately aimed at improving human quality of life. We believe technology should serve humanity's deepest needs.</p>
 					</div>
-					<div class="value-card">
+					<div class="value-card scroll-animate">
 						<h3 class="value-title">Continuous<br/>Innovation</h3>
 						<p class="value-description">Constantly exploring scientific frontiers with innovative thinking to solve the most challenging problems.</p>
 					</div>
-					<div class="value-card">
+					<div class="value-card scroll-animate">
 						<h3 class="value-title">Open Collaboration</h3>
 						<p class="value-description">Working closely with world-leading research institutions and medical teams to advance human health.</p>
 					</div>
@@ -465,7 +518,7 @@ import { SITE_TITLE, COMPANY, GOALS } from '../consts';
 				</div>
 
 				<div class="team-grid">
-					<div class="team-member">
+					<div class="team-member scroll-animate">
 						<span class="member-eyebrow">Founder & CEO</span>
 						<h3 class="member-name">Takayuki Ishii</h3>
 						<p class="member-bio">
@@ -477,7 +530,7 @@ import { SITE_TITLE, COMPANY, GOALS } from '../consts';
 							<a href="mailto:raucvr@berkeley.edu">Email</a>
 						</div>
 					</div>
-					<div class="team-member">
+					<div class="team-member scroll-animate">
 						<span class="member-eyebrow">Open Position</span>
 						<h3 class="member-name">Join Our Team</h3>
 						<p class="member-bio">
@@ -500,28 +553,28 @@ import { SITE_TITLE, COMPANY, GOALS } from '../consts';
 				</div>
 
 				<div class="timeline-list">
-					<div class="timeline-item">
+					<div class="timeline-item scroll-animate">
 						<span class="timeline-year">2023</span>
 						<div class="timeline-content">
 							<h3>Neuroship Founded</h3>
 							<p>With a vision to change the world, Neuroship officially sets sail.</p>
 						</div>
 					</div>
-					<div class="timeline-item">
+					<div class="timeline-item scroll-animate">
 						<span class="timeline-year">Phase 1</span>
 						<div class="timeline-content">
 							<h3>Smart Glasses R&D</h3>
 							<p>Developing AI-powered smart glasses as an "external neural pathway" for autism assistance.</p>
 						</div>
 					</div>
-					<div class="timeline-item">
+					<div class="timeline-item scroll-animate">
 						<span class="timeline-year">Phase 2</span>
 						<div class="timeline-content">
 							<h3>Gene Therapy Research</h3>
 							<p>Mastering the craftsmanship of neural gene editing to treat autism at its roots.</p>
 						</div>
 					</div>
-					<div class="timeline-item">
+					<div class="timeline-item scroll-animate">
 						<span class="timeline-year">Phase 3</span>
 						<div class="timeline-content">
 							<h3>Evolution Engineering</h3>
@@ -533,5 +586,25 @@ import { SITE_TITLE, COMPANY, GOALS } from '../consts';
 		</main>
 
 		<Footer />
+
+		<script is:inline>
+			// Scroll animation observer
+			document.addEventListener('DOMContentLoaded', () => {
+				const animateElements = document.querySelectorAll('.scroll-animate');
+				
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach(entry => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				});
+
+				animateElements.forEach(el => observer.observe(el));
+			});
+		</script>
 	</body>
 </html>

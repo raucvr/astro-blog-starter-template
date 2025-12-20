@@ -15,4 +15,4 @@ Ship (星舰/诺亚方舟)： 此时的 Ship 具有强烈的**“跨时代航行
 寓意组合： “智慧文明的跨代跃迁”。它暗示公司不仅在做技术，更是在打造承载人类文明走向更高维度的**“进化之舰”**
 
 
-our vision: Decoding the rhythms of life, ensuring no mind is left behind, granting every life the freedom to reach the future.
+our vision(一个字也不能改): Decoding the rhythms of life, ensuring no mind is left behind, granting every life the freedom to reach the future.

@@ -97,6 +97,12 @@ import { SITE_TITLE, SOCIAL_LINKS, LOGOS } from '../consts';
 		display: block;
 	}
 
+	/* Hamburger bar animation */
+	.menu-btn .bar {
+		transition: transform 0.3s ease, opacity 0.3s ease;
+		transform-origin: center;
+	}
+
 	/* Mobile Menu - Global styles for elements outside header */
 	:global(.mobile-menu) {
 		display: none;
