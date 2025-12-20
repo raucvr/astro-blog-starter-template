@@ -91,27 +91,25 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				height: auto;
 			}
 
-			/* Two-column layout: TOC + Content */
+			/* Article body - relative container for absolute TOC */
 			.article-body {
 				position: relative;
-				display: flex;
-				gap: 2rem;
-				padding-top: 0.5rem;
-			}
-
-			/* Table of Contents - Thinking Machines exact style */
-			.toc {
-				width: 220px;
-				flex-shrink: 0;
-				position: sticky;
-				top: 100px;
-				align-self: flex-start;
-			}
-
-			/* Article content - Right side */
-			.article-content {
-				flex: 1;
 				max-width: 660px;
+				margin: 0 auto;
+				padding: 0 2rem;
+			}
+
+			/* Table of Contents - Thinking Machines exact style (absolute positioning) */
+			.toc {
+				position: absolute;
+				right: calc(100% + 34px); /* Position to the left of content */
+				top: 10px;
+				width: 220px;
+			}
+
+			/* Article content - Centered */
+			.article-content {
+				width: 100%;
 				padding-bottom: 4rem;
 			}
 
@@ -241,17 +239,17 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				color: var(--text-primary);
 			}
 
-			@media (max-width: 1024px) {
+			@media (max-width: 1200px) {
 				.toc {
 					display: none;
 				}
 
 				.article-body {
-					justify-content: center;
+					padding: 0 1.5rem;
 				}
 
 				.article-content {
-					padding: 0 1rem 3rem;
+					padding: 0 0 3rem;
 				}
 			}
 
@@ -333,12 +331,29 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<Footer />
 
 		<script is:inline>
-			// Generate Table of Contents from h2 headings
+			// Generate Table of Contents from h2 headings - Thinking Machines style
 			document.addEventListener('DOMContentLoaded', () => {
 				const content = document.getElementById('article-content');
 				const tocList = document.getElementById('toc-list');
 				const headings = content.querySelectorAll('h2');
 
+				// Add "Introduction" as first TOC item (like Thinking Machines)
+				const introLi = document.createElement('li');
+				introLi.className = 'toc-item';
+				const introA = document.createElement('a');
+				introA.className = 'toc-link active'; // Active by default
+				introA.href = '#introduction';
+				introA.textContent = 'Introduction';
+				introLi.appendChild(introA);
+				tocList.appendChild(introLi);
+
+				// Add ID to the first paragraph for "Introduction" link
+				const firstParagraph = content.querySelector('p');
+				if (firstParagraph) {
+					firstParagraph.id = 'introduction';
+				}
+
+				// Add h2 headings to TOC
 				headings.forEach((heading, index) => {
 					// Create ID for heading if not exists
 					if (!heading.id) {
@@ -361,7 +376,23 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				// Highlight active TOC item on scroll
 				const tocLinks = document.querySelectorAll('.toc-link');
 				
-				const observer = new IntersectionObserver((entries) => {
+				// Observe introduction paragraph
+				const introObserver = new IntersectionObserver((entries) => {
+					entries.forEach(entry => {
+						if (entry.isIntersecting) {
+							tocLinks.forEach(link => link.classList.remove('active'));
+							const introLink = document.querySelector('.toc-link[href="#introduction"]');
+							if (introLink) introLink.classList.add('active');
+						}
+					});
+				}, { rootMargin: '-100px 0px -66%' });
+
+				if (firstParagraph) {
+					introObserver.observe(firstParagraph);
+				}
+
+				// Observe h2 headings
+				const headingObserver = new IntersectionObserver((entries) => {
 					entries.forEach(entry => {
 						if (entry.isIntersecting) {
 							tocLinks.forEach(link => link.classList.remove('active'));
@@ -371,7 +402,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 					});
 				}, { rootMargin: '-100px 0px -66%' });
 
-				headings.forEach(heading => observer.observe(heading));
+				headings.forEach(heading => headingObserver.observe(heading));
 
 				// Back to top
 				document.getElementById('back-to-top')?.addEventListener('click', (e) => {
