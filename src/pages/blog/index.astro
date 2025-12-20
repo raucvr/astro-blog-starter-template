@@ -14,98 +14,197 @@ const posts = (await getCollection('blog')).sort(
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`Blog - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
+			/* Page Header */
+			.page-header {
+				padding: 10rem 2rem 4rem;
 				text-align: center;
+				position: relative;
+				overflow: hidden;
 			}
-			ul li:first-child img {
-				width: 100%;
+
+			.page-header::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 150%;
+				height: 100%;
+				background: 
+					radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+				pointer-events: none;
+				z-index: -1;
 			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
+
+			.page-header h1 {
+				font-size: clamp(2.5rem, 6vw, 4rem);
+				margin-bottom: 1rem;
 			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
+
+			.page-header .lead {
+				max-width: 600px;
+				margin: 0 auto;
+				font-size: 1.2rem;
+				color: var(--text-secondary);
 			}
-			ul li a {
+
+			/* Blog List */
+			.blog-section {
+				max-width: 800px;
+				margin: 0 auto;
+				padding: 2rem 2rem 6rem;
+			}
+
+			.blog-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+
+			.blog-item {
+				border-bottom: 1px solid var(--border-color);
+				padding: 2rem 0;
+				transition: all 0.3s ease;
+			}
+
+			.blog-item:first-child {
+				padding-top: 0;
+			}
+
+			.blog-item:last-child {
+				border-bottom: none;
+			}
+
+			.blog-link {
 				display: block;
+				text-decoration: none;
+				color: inherit;
 			}
-			.title {
+
+			.blog-link:hover .blog-title {
+				color: var(--primary-light);
+			}
+
+			.blog-meta {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				margin-bottom: 0.75rem;
+				font-size: 0.9rem;
+				color: var(--text-muted);
+			}
+
+			.blog-date {
+				color: var(--primary-light);
+				font-weight: 500;
+			}
+
+			.blog-author {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+			}
+
+			.blog-author::before {
+				content: '·';
+				color: var(--text-muted);
+			}
+
+			.blog-title {
+				font-size: 1.5rem;
+				font-weight: 600;
+				margin: 0 0 0.5rem 0;
+				color: var(--text-primary);
+				transition: color 0.3s ease;
+				line-height: 1.4;
+			}
+
+			.blog-description {
+				color: var(--text-secondary);
 				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
+				line-height: 1.7;
+				font-size: 1rem;
 			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
+
+			/* Empty State */
+			.empty-state {
+				text-align: center;
+				padding: 4rem 2rem;
+				color: var(--text-muted);
 			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
+
+			.empty-state h3 {
+				color: var(--text-secondary);
+				margin-bottom: 1rem;
 			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
+
+			@media (max-width: 768px) {
+				.page-header {
+					padding: 8rem 1rem 3rem;
 				}
-				ul li {
-					width: 100%;
-					text-align: center;
+
+				.blog-section {
+					padding: 1rem 1rem 4rem;
 				}
-				ul li:first-child {
-					margin-bottom: 0;
+
+				.blog-title {
+					font-size: 1.25rem;
 				}
-				ul li:first-child .title {
-					font-size: 1.563em;
+
+				.blog-meta {
+					flex-direction: column;
+					align-items: flex-start;
+					gap: 0.25rem;
+				}
+
+				.blog-author::before {
+					display: none;
 				}
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<img width={720} height={360} src={post.data.heroImage} alt="" />
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
+		
+		<!-- Page Header -->
+		<section class="page-header">
+			<h1><span class="gradient-text">Insights</span></h1>
+			<p class="lead">Thoughts on neuroscience, AI, and the future of human potential</p>
+		</section>
+
+		<!-- Blog List -->
+		<section class="blog-section">
+			{posts.length > 0 ? (
+				<ul class="blog-list">
+					{posts.map((post) => (
+						<li class="blog-item">
+							<a href={`/blog/${post.id}/`} class="blog-link">
+								<div class="blog-meta">
+									<span class="blog-date">
 										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
+									</span>
+									{post.data.author && (
+										<span class="blog-author">{post.data.author}</span>
+									)}
+								</div>
+								<h2 class="blog-title">{post.data.title}</h2>
+								{post.data.description && (
+									<p class="blog-description">{post.data.description}</p>
+								)}
+							</a>
+						</li>
+					))}
 				</ul>
-			</section>
-		</main>
+			) : (
+				<div class="empty-state">
+					<h3>Coming Soon</h3>
+					<p>We're working on some exciting content. Check back soon!</p>
+				</div>
+			)}
+		</section>
+
 		<Footer />
 	</body>
 </html>

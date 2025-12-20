@@ -10,7 +10,7 @@ export const COMPANY = {
   tagline: "Decoding the Rhythms of Life",
   vision: "Decoding the rhythms of life, ensuring no mind is left behind, granting every life the freedom to reach the future.",
   email: "raucvr@berkeley.edu",
-  founded: 2024,
+  founded: 2023,
 };
 
 // Goals
