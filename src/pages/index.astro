@@ -10,19 +10,45 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			/* Hero Section - Isomorphic Labs style */
+			/* Hero Section - Isomorphic Labs style with gradient */
 			.hero {
 				min-height: 100vh;
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
 				padding: 8rem 2rem 4rem;
+				position: relative;
+				overflow: hidden;
+			}
+
+			/* Gradient overlay background - Isomorphic Labs "amino acid" style */
+			.hero::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: linear-gradient(0deg, rgb(230, 247, 255), rgb(233, 255, 233));
+				z-index: -1;
 			}
 
 			.hero-content {
 				max-width: 1400px;
 				margin: 0 auto;
 				width: 100%;
+				animation: fadeInUp 0.8s ease forwards;
+			}
+
+			/* Hero Logo at top */
+			.hero-logo {
+				margin-bottom: 3rem;
+				animation: fadeIn 0.6s ease forwards;
+			}
+
+			.hero-logo img {
+				max-width: 280px;
+				height: auto;
 			}
 
 			.hero-title {
@@ -32,6 +58,8 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 				letter-spacing: -0.03em;
 				margin-bottom: 2rem;
 				max-width: 600px;
+				animation: fadeInUp 0.8s ease 0.1s forwards;
+				opacity: 0;
 			}
 
 			.hero-description {
@@ -41,6 +69,8 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 				max-width: 600px;
 				margin-bottom: 0;
 				font-weight: 300;
+				animation: fadeInUp 0.8s ease 0.2s forwards;
+				opacity: 0;
 			}
 
 			/* Main Content */
@@ -162,6 +192,11 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 				padding: 2rem;
 				display: flex;
 				flex-direction: column;
+				transition: background 0.3s ease;
+			}
+
+			.goal-card:hover {
+				background: var(--gray-50);
 			}
 
 			.card-eyebrow {
@@ -179,28 +214,11 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 				flex: 1;
 			}
 
-			.card-link {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.5rem;
-				font-size: 1rem;
-				color: var(--text-secondary);
-				text-decoration: none;
-				margin-top: auto;
-			}
-
-			.card-link svg {
-				width: 14px;
-				height: 14px;
-				transition: transform 0.3s ease;
-			}
-
-			.card-link:hover {
+			.card-description {
+				font-size: 0.875rem;
 				color: var(--text-muted);
-			}
-
-			.card-link:hover svg {
-				transform: translateX(4px);
+				line-height: 1.5;
+				margin-bottom: 0;
 			}
 
 			/* Vision Section */
@@ -330,6 +348,23 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 				margin-top: 2rem;
 			}
 
+			/* Animations */
+			@keyframes fadeIn {
+				from { opacity: 0; }
+				to { opacity: 1; }
+			}
+
+			@keyframes fadeInUp {
+				from {
+					opacity: 0;
+					transform: translateY(30px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
 			/* Responsive */
 			@media (max-width: 1024px) {
 				.cards-grid {
@@ -346,6 +381,10 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 				.hero {
 					padding: 6rem 1rem 3rem;
 					min-height: auto;
+				}
+
+				.hero-logo img {
+					max-width: 200px;
 				}
 
 				.hero-title {
@@ -394,9 +433,14 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 	<body>
 		<Header />
 		
-		<!-- Hero Section -->
+		<!-- Hero Section with Gradient Background -->
 		<section class="hero">
 			<div class="hero-content">
+				<!-- Large Logo at top -->
+				<div class="hero-logo">
+					<img src={LOGOS.full} alt="Neuroship" />
+				</div>
+				
 				<h1 class="hero-title">
 					Decoding<br/>
 					the rhythms<br/>
@@ -436,56 +480,35 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 				</div>
 			</div>
 
-			<!-- Goals Section -->
+			<!-- Goals Section - Removed unnecessary About links -->
 			<section class="goals-section">
 				<div class="goals-header">
 					<div class="goals-intro">
 						<span class="goals-eyebrow">Our Goal</span>
 						<h2 class="goals-title">We're using AI to transform understanding of the human mind.</h2>
 					</div>
-					<a href="/about" class="arrow-link">
-						Learn More
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<path d="M5 12h14M12 5l7 7-7 7"/>
-						</svg>
-					</a>
 				</div>
 
 				<div class="cards-grid">
 					<div class="goal-card">
 						<span class="card-eyebrow">Phase 1 · Short-term</span>
 						<h3 class="card-title">{GOALS.shortTerm.title}</h3>
-						<a href="/about" class="card-link">
-							Learn More
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-								<path d="M5 12h14M12 5l7 7-7 7"/>
-							</svg>
-						</a>
+						<p class="card-description">{GOALS.shortTerm.description}</p>
 					</div>
 					<div class="goal-card">
 						<span class="card-eyebrow">Phase 2 · Mid-term</span>
 						<h3 class="card-title">{GOALS.midTerm.title}</h3>
-						<a href="/about" class="card-link">
-							Learn More
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-								<path d="M5 12h14M12 5l7 7-7 7"/>
-							</svg>
-						</a>
+						<p class="card-description">{GOALS.midTerm.description}</p>
 					</div>
 					<div class="goal-card">
 						<span class="card-eyebrow">Phase 3 · Long-term</span>
 						<h3 class="card-title">{GOALS.longTerm.title}</h3>
-						<a href="/about" class="card-link">
-							Learn More
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-								<path d="M5 12h14M12 5l7 7-7 7"/>
-							</svg>
-						</a>
+						<p class="card-description">{GOALS.longTerm.description}</p>
 					</div>
 				</div>
 			</section>
 
-			<!-- Vision Section -->
+			<!-- Vision Section - Keep one "About Us" link here -->
 			<section class="vision-section">
 				<div class="vision-grid">
 					<div class="vision-text">
@@ -501,7 +524,7 @@ import { SITE_TITLE, SITE_DESCRIPTION, COMPANY, GOALS, LOGOS } from '../consts';
 						</a>
 					</div>
 					<div class="vision-image">
-						<img src={LOGOS.full} alt="Neuroship" style="max-width: 400px;" />
+						<!-- Decorative element or secondary visual -->
 					</div>
 				</div>
 			</section>

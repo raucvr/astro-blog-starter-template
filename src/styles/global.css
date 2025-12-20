@@ -24,10 +24,16 @@
 	--gray-800: #27272a;
 	--gray-900: #18181b;
 	
+	/* Isomorphic Labs Amino Acid Gradient Colors */
+	--gradient-blue: rgb(230, 247, 255);
+	--gradient-green: rgb(233, 255, 233);
+	--hero-gradient: linear-gradient(0deg, var(--gradient-blue), var(--gradient-green));
+	--nav-gradient: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 100%);
+	
 	/* Primary Colors */
 	--bg-primary: var(--white);
 	--bg-secondary: var(--gray-50);
-	--bg-nav: #dddddd;
+	--bg-nav: transparent;
 	
 	/* Text Colors */
 	--text-primary: var(--black);
